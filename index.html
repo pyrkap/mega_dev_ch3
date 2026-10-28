@@ -54,27 +54,35 @@
       <h1>#4471 split · dates parse mm/dd and booking hint</h1>
       <p class="meta">
         <span>owner <b>patryk</b></span>
-        <span class="status resolved">resolved</span>
+        <span class="status closed">closed</span>
         <span>reviewed 2026-10-28 · 0 days ago</span>
       </p>
     </header>
     <main>
-      <p>Ticket #4471 originally merged 412 reports into one ticket. Analysis of tenant locales and booking forms shows that these reports cover two distinct root causes.</p>
+      <p>Ticket #4471 originally merged 412 reports into one ticket. Analysis of tenant locales and booking forms showed that these reports covered two distinct root causes.</p>
       
       <aside class="callout">
-        <p>Split into two separate issues. Ticket #4471 is now split into dedicated tickets with accurate report counts.</p>
+        <p>Closed. Ticket #4471 split into two dedicated tickets, both now resolved in engineering.</p>
       </aside>
+
+      <h2>Engineering Resolution (05 Oct 2026)</h2>
+      <ul>
+        <li><strong>#1 (parser · 379 reports):</strong> FIXED — <code>fix(dates): parse dd/mm for eu locales</code></li>
+        <li><strong>#2 (hint · 33 reports):</strong> WON'T FIX — <code>booking-v3 form retired</code></li>
+      </ul>
 
       <h2>The Two Problems</h2>
       <ol>
         <li>
           <strong>Parser reads dates month-first in day-first locales (379 reports)</strong>
           <p>The shared date parser expects MM/DD/YYYY. When day-first tenants submit dates through channels without conflicting hints, dates with days ≤ 12 are inverted, or fail if days > 12.</p>
+          <p>Closed as completed: fixed in engineering.</p>
           <p>Tracked in GitHub issue <a href="https://github.com/pyrkap/mega_dev_ch3/issues/1">#1</a>: 379 reports.</p>
         </li>
         <li>
           <strong>Booking-v3 form displays MM/DD/YYYY hint in day-first locales (33 reports)</strong>
           <p>The booking-v3 form UI shows an MM/DD/YYYY hint under the date field. Users in day-first locales follow the hint, but the form interprets inputs as day-first.</p>
+          <p>Closed as not planned: booking-v3 form retired.</p>
           <p>Tracked in GitHub issue <a href="https://github.com/pyrkap/mega_dev_ch3/issues/2">#2</a>: 33 reports.</p>
         </li>
       </ol>
