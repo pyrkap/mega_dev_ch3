@@ -1,0 +1,48 @@
+---
+layout: runbook
+title: '#4471 split · dates parse mm/dd and booking hint'
+owner: patryk
+status: resolved
+reviewed: '2026-10-28'
+signature: 'v1.eyJzdWIiOiIyMDMwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxODg0NTIsImV4cCI6MTc5MzI3NDg1Mn0.82xWdlHk5byXX4dhI0Ru-nCiv3s8xp4ozHO7CzqAgYs'
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const signature = 'v1.eyJzdWIiOiIyMDMwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMxODg0NTIsImV4cCI6MTc5MzI3NDg1Mn0.82xWdlHk5byXX4dhI0Ru-nCiv3s8xp4ozHO7CzqAgYs';
+</script>
+
+Ticket #4471 originally merged 412 reports into one ticket. Analysis of tenant locales and booking forms shows that these reports cover two distinct root causes.
+
+<Callout>
+Split into two separate issues. Ticket #4471 is now split into dedicated tickets with accurate report counts.
+</Callout>
+
+## The Two Problems
+
+1. **Parser reads dates month-first in day-first locales (379 reports)**
+   - The shared date parser expects MM/DD/YYYY. When day-first tenants submit dates through channels without conflicting hints, dates with days ≤ 12 are inverted, or fail if days > 12.
+   - Tracked in GitHub issue [#1](https://github.com/pyrkap/mega_dev_ch3/issues/1): 379 reports.
+
+2. **Booking-v3 form displays MM/DD/YYYY hint in day-first locales (33 reports)**
+   - The booking-v3 form UI shows an MM/DD/YYYY hint under the date field. Users in day-first locales follow the hint, but the form interprets inputs as day-first.
+   - Tracked in GitHub issue [#2](https://github.com/pyrkap/mega_dev_ch3/issues/2): 33 reports.
+
+## What was merged into #4471
+
+<CauseTable ticket={4471} />
+
+## Queue timeline since April
+
+<QueueTimeline ticket={4471} />
+
+## Lessons
+
+- Deduplication by subject line alone grouped two separate bugs together.
+- Always verify tenant locales and booking form versions when triaging date anomalies.
+
+<RenderStamp {signature} />
